@@ -77,7 +77,20 @@ async function searchMovies(searchTerm, page = 1) {
         console.error('Errore:', error);
     }
 }
-
+// Funzione per verificare se un'immagine esiste
+function checkImage(url) {
+    return new Promise((resolve) => {
+        if (!url || url === 'N/A') {
+            resolve('https://via.placeholder.com/300x450/16213e/e94560?text=Locandina+Non+Disponibile');
+            return;
+        }
+        
+        const img = new Image();
+        img.onload = () => resolve(url);
+        img.onerror = () => resolve('https://via.placeholder.com/300x450/16213e/e94560?text=Immagine+Non+Disponibile');
+        img.src = url;
+    });
+}
 // Funzione per visualizzare i film
 function displayMovies(movies) {
     resultsContainer.innerHTML = '';
