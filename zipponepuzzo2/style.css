@@ -6,10 +6,14 @@
 }
 
 body {
-    background-color: #1a1a2e;
-    color: #e6e6e6;
+    background: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.02), transparent 10%),
+                radial-gradient(circle at 90% 80%, rgba(233,69,96,0.03), transparent 15%),
+                linear-gradient(180deg,#0b0c10 0%, #140d0f 50%, #24090a 100%);
+    color: #f3f3f3;
     line-height: 1.6;
-    padding: 20px;
+    padding: 24px;
+    min-height: 100vh;
+    font-synthesis: none;
 }
 
 .container {
@@ -17,51 +21,118 @@ body {
     margin: 0 auto;
 }
 
-header {
+header.theater-header {
+    position: relative;
     text-align: center;
-    margin-bottom: 30px;
-    padding: 20px;
-    background: linear-gradient(135deg, #16213e, #0f3460);
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    margin-bottom: 28px;
+    padding: 28px 22px 14px 22px;
+    background: linear-gradient(180deg, rgba(10,5,6,0.9), rgba(30,10,12,0.95));
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.6), inset 0 -6px 40px rgba(0,0,0,0.6);
+    overflow: visible;
 }
 
-h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    color: #e94560;
+.theater-header .curtains {
+    position: absolute;
+    left: 0; right: 0; top: -10px;
+    height: 120px;
+    pointer-events: none;
 }
 
-.search-container {
+.theater-header .curtain {
+    width: 50%;
+    height: 100%;
+    display: inline-block;
+    background: linear-gradient(180deg,#7b0f20,#3b0510);
+    box-shadow: inset 0 40px 80px rgba(255,255,255,0.02), 0 10px 40px rgba(0,0,0,0.6);
+    transform-origin: top center;
+}
+
+.theater-header .curtain.left { border-top-left-radius: 12px; transform: skewX(-10deg) translateX(-5%); }
+.theater-header .curtain.right { border-top-right-radius: 12px; transform: skewX(10deg) translateX(5%); }
+
+h1, .title {
+    font-size: 2.6rem;
+    margin-bottom: 8px;
+    color: #ffd7d5;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 12px rgba(233,69,96,0.12);
+}
+
+.header-content {
+    padding: 10px 20px 0 20px;
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.reel {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffd7d5 0%, #e94560 20%, #7b0f20 60%);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.6), inset -6px -6px 12px rgba(255,255,255,0.06);
+    position: relative;
+}
+
+.reel::before, .reel::after {
+    content: '';
+    position: absolute; inset: 0; border-radius: 50%;
+    box-shadow: inset 0 0 0 6px rgba(0,0,0,0.12);
+}
+
+.subtitle { color: #ffd7d5a8; margin-top: 6px; font-size: 0.96rem; }
+
+.marquee {
+    margin-top: 10px;
+    color: #ffe6e6;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    padding: 8px 12px;
+    background: linear-gradient(90deg, rgba(233,69,96,0.06), rgba(255,255,255,0.02));
+    border-radius: 20px;
+    display: inline-block;
+    box-shadow: 0 6px 20px rgba(233,69,96,0.06);
+}
+
+.search-container.ticket {
     display: flex;
     justify-content: center;
-    margin: 20px 0;
+    margin: 18px 0 18px 0;
+    align-items: center;
+    gap: 10px;
 }
 
 #search-input {
     width: 70%;
-    padding: 12px 15px;
+    padding: 14px 18px;
     font-size: 1rem;
     border: none;
-    border-radius: 25px 0 0 25px;
-    background-color: #0f3460;
-    color: #e6e6e6;
+    border-radius: 12px 0 0 12px;
+    background-color: rgba(255,255,255,0.03);
+    color: #fff;
     outline: none;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4), inset 0 -4px 20px rgba(0,0,0,0.25);
 }
 
 #search-input::placeholder {
     color: #8a8a8a;
 }
 
-#search-button {
-    padding: 12px 25px;
+#search-button.cta {
+    padding: 12px 24px;
     font-size: 1rem;
-    background-color: #e94560;
+    background: linear-gradient(180deg,#ff7b85,#e94560);
     color: white;
     border: none;
-    border-radius: 0 25px 25px 0;
+    border-radius: 0 12px 12px 0;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+    box-shadow: 0 6px 18px rgba(233,69,96,0.18);
 }
 
 #search-button:hover {
@@ -70,17 +141,18 @@ h1 {
 
 .results-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 25px;
-    margin: 30px 0;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 24px;
+    margin: 20px 0 60px 0;
 }
 
 .movie-card {
-    background-color: #16213e;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.25));
     border-radius: 10px;
     overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.28s cubic-bezier(.2,.9,.2,1), box-shadow 0.28s;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.025);
 }
 
 .movie-card:hover {
@@ -92,33 +164,24 @@ h1 {
     width: 100%;
     height: 350px;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: transform 0.28s ease;
 }
 
+.movie-card:hover .movie-poster { transform: scale(1.02); }
 
-.movie-info {
-    padding: 15px;
-}
+
+.movie-info { padding: 14px 16px; position: relative; }
 
 .movie-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 8px;
-    color: #e94560;
+    font-size: 1.08rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #ffd7d5;
 }
 
-.movie-year {
-    color: #8a8a8a;
-    font-size: 0.9rem;
-    margin-bottom: 10px;
-}
+.movie-year { color: #c9c8cd; font-size: 0.9rem; margin-bottom: 8px; }
 
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 30px 0;
-}
+.pagination { display: flex; justify-content: center; align-items: center; margin: 30px 0; }
 
 .pagination button {
     background-color: #0f3460;
@@ -169,12 +232,16 @@ h1 {
     margin: 30px 0;
 }
 
-footer {
-    text-align: center;
-    margin-top: 40px;
-    padding: 20px;
-    color: #8a8a8a;
-    font-size: 0.9rem;
+footer { text-align: center; margin-top: 40px; padding: 22px; color: #bfb9b9; font-size: 0.9rem; }
+
+.ticket { border-radius: 12px; padding: 7px; background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(255,255,255,0.01)); border: 1px dashed rgba(255,255,255,0.02); }
+
+/* call-to-action / details button */
+.details-btn { background: linear-gradient(180deg,#e94560,#d13a4b); color: white; border: none; padding: 10px 18px; border-radius: 22px; cursor: pointer; font-weight: 700; }
+
+@media (max-width: 768px) {
+    .movie-poster { height: 300px; }
+    #search-input { width: 84%; }
 }
 .details-btn {
     background: #e94560;

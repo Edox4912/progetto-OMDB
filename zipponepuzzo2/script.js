@@ -1,7 +1,5 @@
 const API_KEY = '8ce88e44';
 const BASE_URL = 'https://www.omdbapi.com/';
-
-
 const searchInput = document.getElementById('search-input');
 const searchButton = document.getElementById('search-button');
 const resultsContainer = document.getElementById('results-container');
@@ -38,6 +36,8 @@ nextButton.addEventListener('click', () => {
     }
 });
 
+// (removed now-showing / featured-container behavior)
+
 
 function performSearch() {
     const searchTerm = searchInput.value.trim();
@@ -51,6 +51,8 @@ function performSearch() {
     currentPage = 1;
     searchMovies(searchTerm, currentPage);
 }
+
+// featured functions removed
 
 // Funzione per cercare i film
 async function searchMovies(searchTerm, page = 1) {
@@ -77,7 +79,6 @@ async function searchMovies(searchTerm, page = 1) {
         console.error('Errore:', error);
     }
 }
-// Funzione per verificare se un'immagine esiste
 function checkImage(url) {
     return new Promise((resolve) => {
         if (!url || url === 'N/A') {
@@ -91,7 +92,7 @@ function checkImage(url) {
         img.src = url;
     });
 }
-// Funzione per visualizzare i film
+
 function displayMovies(movies) {
     resultsContainer.innerHTML = '';
     
@@ -114,50 +115,47 @@ function displayMovies(movies) {
     });
 }
 
-// Funzione per aggiornare la paginazione
 function updatePagination(totalResults, currentPage) {
-    // Calcola il numero totale di pagine (10 risultati per pagina)
+   
     totalPages = Math.ceil(totalResults / 10);
     
-    // Aggiorna gli elementi della paginazione
+   
     currentPageElement.textContent = currentPage;
     totalPagesElement.textContent = totalPages;
-    
-    // Abilita/disabilita i pulsanti
+
     prevButton.disabled = currentPage <= 1;
     nextButton.disabled = currentPage >= totalPages;
     
-    // Mostra la paginazione
+   
     paginationElement.style.display = 'flex';
 }
 
-// Funzione per nascondere la paginazione
+
 function hidePagination() {
     paginationElement.style.display = 'none';
 }
 
-// Funzione per cancellare i risultati
+
 function clearResults() {
     resultsContainer.innerHTML = '';
 }
 
-// Funzione per mostrare il caricamento
+
 function showLoading() {
     loadingElement.style.display = 'block';
 }
 
-// Funzione per nascondere il caricamento
 function hideLoading() {
     loadingElement.style.display = 'none';
 }
 
-// Funzione per mostrare l'errore
+
 function showError(message) {
     errorElement.textContent = message;
     errorElement.style.display = 'block';
 }
 
-// Funzione per nascondere l'errore
+
 function hideError() {
     errorElement.style.display = 'none';
 }

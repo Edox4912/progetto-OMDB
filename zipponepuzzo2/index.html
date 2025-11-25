@@ -8,16 +8,25 @@
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Cerca Film</h1>
-            <p>Trova informazioni su qualsiasi film utilizzando l'API OMDb</p>
+        <header class="theater-header">
+            <div class="curtains">
+                <div class="curtain left"></div>
+                <div class="curtain right"></div>
+            </div>
+            <div class="header-content">
+                <div class="logo">
+                    <div class="reel"></div>
+                    <h1 class="title">Cinema & Tickets</h1>
+                </div>
+                <p class="subtitle">Entra in sala — scopri le uscite recenti e cerca il tuo film preferito</p>
+            </div>
+            <div class="marquee">In Sala Ora — Nuove Uscite</div>
         </header>
 
-        <div class="search-container">
-            <input type="text" id="search-input" placeholder="Inserisci il titolo del film...">
-            <button id="search-button">Cerca</button>
+        <div class="search-container ticket">
+            <input type="text" id="search-input" placeholder="Cerca un film, es. 'Dune'..." aria-label="Cerca il titolo del film">
+            <button id="search-button" class="cta">Cerca</button>
         </div>
-
         <div id="loading" class="loading" style="display: none;">Caricamento in corso...</div>
         <div id="error" class="error" style="display: none;"></div>
 
