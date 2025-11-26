@@ -21,7 +21,7 @@ searchInput.addEventListener('keypress', (e) => {
         performSearch();
     }
 });
-
+ 
 prevButton.addEventListener('click', () => {
     if (currentPage > 1) {
         currentPage--;
@@ -35,10 +35,6 @@ nextButton.addEventListener('click', () => {
         searchMovies(currentSearchTerm, currentPage);
     }
 });
-
-// (removed now-showing / featured-container behavior)
-
-
 function performSearch() {
     const searchTerm = searchInput.value.trim();
     
@@ -158,4 +154,123 @@ function showError(message) {
 
 function hideError() {
     errorElement.style.display = 'none';
+}
+const popup = document.getElementById('movie-popup');
+const popupClose = document.querySelector('.popup-close');
+const popupPoster = document.getElementById('popup-poster');
+const popupTitle = document.getElementById('popup-title');
+const popupYear = document.getElementById('popup-year');
+const popupRating = document.getElementById('popup-rating');
+const popupRuntime = document.getElementById('popup-runtime');
+const popupGenre = document.getElementById('popup-genre');
+const popupPlot = document.getElementById('popup-plot');
+const popupDirector = document.getElementById('popup-director');
+const popupActors = document.getElementById('popup-actors');
+const popupWriter = document.getElementById('popup-writer');
+const popupLanguage = document.getElementById('popup-language');
+const popupAwards = document.getElementById('popup-awards');
+const popupBoxOffice = document.getElementById('popup-boxoffice');
+
+// Event listeners per il pop-up
+popupClose.addEventListener('click', closePopup);
+popup.addEventListener('click', (e) => {
+    if (e.target === popup) {
+        closePopup();
+    }
+});
+
+// Chiudi pop-up con ESC
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && popup.classList.contains('active')) {
+        closePopup();
+    }
+});
+
+function displayMovies(movies) {
+    resultsContainer.innerHTML = '';
+    
+    movies.forEach(movie => {
+        const movieCard = document.createElement('div');
+        movieCard.className = 'movie-card';
+        movieCard.style.cursor = 'pointer';
+        
+        const poster = movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/300x450/16213e/e94560?text=No+Image';
+        
+        movieCard.innerHTML = `
+            <img src="${poster}" alt="${movie.Title}" class="movie-poster">
+            <div class="movie-info">
+                <h3 class="movie-title">${movie.Title}</h3>
+                <p class="movie-year">${movie.Year}</p>
+                <p class="movie-type">${movie.Type}</p>
+            </div>
+        `;
+        
+        // Aggiungi event listener per il click sulla card
+        movieCard.addEventListener('click', () => {
+            showMovieDetails(movie.imdbID);
+        });
+        
+        resultsContainer.appendChild(movieCard);
+    });
+}
+
+// Funzione per mostrare i dettagli del film
+async function showMovieDetails(imdbID) {
+    showLoading();
+    
+    try {
+        const response = await fetch(`${BASE_URL}?apikey=${API_KEY}&i=${imdbID}&plot=full`);
+        const movie = await response.json();
+        
+        hideLoading();
+        
+        if (movie.Response === 'True') {
+            populatePopup(movie);
+            openPopup();
+        } else {
+            showError('Impossibile caricare i dettagli del film');
+        }
+    } catch (error) {
+        hideLoading();
+        showError('Errore di connessione. Riprova più tardi.');
+        console.error('Errore:', error);
+    }
+}
+
+// Funzione per popolare il pop-up con i dati del film
+function populatePopup(movie) {
+    // Poster
+    popupPoster.src = movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/300x450/16213e/e94560?text=No+Image';
+    popupPoster.alt = movie.Title;
+    
+    // Titolo e anno
+    popupTitle.textContent = movie.Title;
+    popupYear.textContent = movie.Year;
+    
+    // Metadati
+    popupRating.textContent = `⭐ ${movie.imdbRating !== 'N/A' ? movie.imdbRating : 'N/D'}`;
+    popupRuntime.textContent = movie.Runtime !== 'N/A' ? movie.Runtime : 'Durata N/D';
+    popupGenre.textContent = movie.Genre !== 'N/A' ? movie.Genre : 'Genere N/D';
+    
+    // Trama
+    popupPlot.textContent = movie.Plot !== 'N/A' ? movie.Plot : 'Trama non disponibile.';
+    
+    // Informazioni dettagliate
+    popupDirector.textContent = movie.Director !== 'N/A' ? movie.Director : 'N/D';
+    popupActors.textContent = movie.Actors !== 'N/A' ? movie.Actors : 'N/D';
+    popupWriter.textContent = movie.Writer !== 'N/A' ? movie.Writer : 'N/D';
+    popupLanguage.textContent = movie.Language !== 'N/A' ? movie.Language : 'N/D';
+    popupAwards.textContent = movie.Awards !== 'N/A' ? movie.Awards : 'Nessun premio';
+    popupBoxOffice.textContent = movie.BoxOffice !== 'N/A' ? movie.BoxOffice : 'N/D';
+}
+
+// Funzioni per aprire/chiudere il pop-up
+function openPopup() {
+    popup.classList.add('active');
+    document.body.style.overflow = 'hidden'; 
+}
+
+function closePopup() {
+    popup.classList.remove('active');
+    document.body.style.overflow = 'auto'; 
 }

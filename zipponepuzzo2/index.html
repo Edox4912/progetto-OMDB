@@ -42,7 +42,50 @@
             <p>Powered by OMDb API</p>
         </footer>
     </div>
-
+<div id="movie-popup" class="popup-overlay">
+    <div class="popup-content">
+        <button class="popup-close">&times;</button>
+        <div class="popup-body">
+            <img id="popup-poster" class="popup-poster" src="" alt="Movie Poster">
+            <div class="popup-details">
+                <h2 id="popup-title" class="popup-title"></h2>
+                <div class="popup-meta">
+                    <span id="popup-year" class="popup-year"></span>
+                    <span id="popup-rating" class="popup-rating"></span>
+                    <span id="popup-runtime" class="popup-runtime"></span>
+                    <span id="popup-genre" class="popup-genre"></span>
+                </div>
+                <p id="popup-plot" class="popup-plot"></p>
+                <div class="popup-info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Regista:</span>
+                        <span id="popup-director" class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Attori:</span>
+                        <span id="popup-actors" class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Sceneggiatura:</span>
+                        <span id="popup-writer" class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Lingua:</span>
+                        <span id="popup-language" class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Premi:</span>
+                        <span id="popup-awards" class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Box Office:</span>
+                        <span id="popup-boxoffice" class="info-value"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <script src="script.js"></script>
 </body>
 </html> 
