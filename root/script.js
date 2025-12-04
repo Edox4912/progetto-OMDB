@@ -48,9 +48,6 @@ function performSearch() {
     searchMovies(searchTerm, currentPage);
 }
 
-// featured functions removed
-
-// Funzione per cercare i film
 async function searchMovies(searchTerm, page = 1) {
     showLoading();
     hideError();
@@ -171,7 +168,7 @@ const popupLanguage = document.getElementById('popup-language');
 const popupAwards = document.getElementById('popup-awards');
 const popupBoxOffice = document.getElementById('popup-boxoffice');
 
-// Event listeners per il pop-up
+
 popupClose.addEventListener('click', closePopup);
 popup.addEventListener('click', (e) => {
     if (e.target === popup) {
@@ -179,7 +176,6 @@ popup.addEventListener('click', (e) => {
     }
 });
 
-// Chiudi pop-up con ESC
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && popup.classList.contains('active')) {
         closePopup();
@@ -205,7 +201,6 @@ function displayMovies(movies) {
             </div>
         `;
         
-        // Aggiungi event listener per il click sulla card
         movieCard.addEventListener('click', () => {
             showMovieDetails(movie.imdbID);
         });
@@ -214,7 +209,7 @@ function displayMovies(movies) {
     });
 }
 
-// Funzione per mostrare i dettagli del film
+
 async function showMovieDetails(imdbID) {
     showLoading();
     
@@ -237,25 +232,25 @@ async function showMovieDetails(imdbID) {
     }
 }
 
-// Funzione per popolare il pop-up con i dati del film
+
 function populatePopup(movie) {
-    // Poster
+    
     popupPoster.src = movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/300x450/16213e/e94560?text=No+Image';
     popupPoster.alt = movie.Title;
     
-    // Titolo e anno
+    
     popupTitle.textContent = movie.Title;
     popupYear.textContent = movie.Year;
     
-    // Metadati
+   
     popupRating.textContent = `⭐ ${movie.imdbRating !== 'N/A' ? movie.imdbRating : 'N/D'}`;
     popupRuntime.textContent = movie.Runtime !== 'N/A' ? movie.Runtime : 'Durata N/D';
     popupGenre.textContent = movie.Genre !== 'N/A' ? movie.Genre : 'Genere N/D';
     
-    // Trama
+    
     popupPlot.textContent = movie.Plot !== 'N/A' ? movie.Plot : 'Trama non disponibile.';
     
-    // Informazioni dettagliate
+    
     popupDirector.textContent = movie.Director !== 'N/A' ? movie.Director : 'N/D';
     popupActors.textContent = movie.Actors !== 'N/A' ? movie.Actors : 'N/D';
     popupWriter.textContent = movie.Writer !== 'N/A' ? movie.Writer : 'N/D';
@@ -264,7 +259,7 @@ function populatePopup(movie) {
     popupBoxOffice.textContent = movie.BoxOffice !== 'N/A' ? movie.BoxOffice : 'N/D';
 }
 
-// Funzioni per aprire/chiudere il pop-up
+
 function openPopup() {
     popup.classList.add('active');
     document.body.style.overflow = 'hidden'; 

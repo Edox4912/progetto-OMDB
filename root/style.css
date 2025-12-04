@@ -26,17 +26,21 @@ header.theater-header {
     text-align: center;
     margin-bottom: 28px;
     padding: 28px 22px 14px 22px;
+    top: -10px;
     background: linear-gradient(180deg, rgba(10,5,6,0.9), rgba(30,10,12,0.95));
     border-radius: 12px;
     box-shadow: 0 8px 30px rgba(0,0,0,0.6), inset 0 -6px 40px rgba(0,0,0,0.6);
     overflow: visible;
+    z-index: -1;
+    justify-content: center;
 }
 
 .theater-header .curtains {
-    position: absolute;
+    position: relative;
     left: 0; right: 0; top: -10px;
     height: 120px;
     pointer-events: none;
+    
 }
 
 .theater-header .curtain {
@@ -46,10 +50,16 @@ header.theater-header {
     background: linear-gradient(180deg,#7b0f20,#3b0510);
     box-shadow: inset 0 40px 80px rgba(255,255,255,0.02), 0 10px 40px rgba(0,0,0,0.6);
     transform-origin: top center;
+    
 }
 
 .theater-header .curtain.left { border-top-left-radius: 12px; transform: skewX(-10deg) translateX(-5%); }
 .theater-header .curtain.right { border-top-right-radius: 12px; transform: skewX(10deg) translateX(5%); }
+
+.theater-header .header-content {
+    position: relative;
+    z-index: 2;
+}
 
 h1, .title {
     font-size: 2.6rem;
@@ -60,9 +70,7 @@ h1, .title {
     text-shadow: 0 2px 12px rgba(233,69,96,0.12);
 }
 
-.header-content {
-    padding: 10px 20px 0 20px;
-}
+
 
 .logo {
     display: inline-flex;
@@ -236,7 +244,7 @@ footer { text-align: center; margin-top: 40px; padding: 22px; color: #bfb9b9; fo
 
 .ticket { border-radius: 12px; padding: 7px; background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(255,255,255,0.01)); border: 1px dashed rgba(255,255,255,0.02); }
 
-/* call-to-action / details button */
+
 .details-btn { background: linear-gradient(180deg,#e94560,#d13a4b); color: white; border: none; padding: 10px 18px; border-radius: 22px; cursor: pointer; font-weight: 700; }
 
 @media (max-width: 768px) {
@@ -403,7 +411,7 @@ footer { text-align: center; margin-top: 40px; padding: 22px; color: #bfb9b9; fo
     color: #ffd7d5;
 }
 
-/* Responsive */
+
 @media (min-width: 768px) {
     .popup-body {
         flex-direction: row;
